@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.target=Ficha2
+comment0.target=Ex1
 comment1.params=a
 comment1.target=int\ minimo_Array(int[])
 comment2.params=a\ b\ c

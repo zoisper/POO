@@ -10,9 +10,10 @@ public class TestePrograma
     public static void main ()
     {
     
-        
-        Ficha2 f = new Ficha2();
         sc = new Scanner(System.in);
+        /*
+        Ex1 f = new Ex1();
+        
         /*System.out.println("Insira quanto valores quer ler: ");
         int nValores = sc.nextInt();
         int[] valores = new int[nValores];
@@ -28,7 +29,7 @@ public class TestePrograma
         int inicio = sc.nextInt();
         System.out.println("Indique o indice final a partir do qual copiar");
         int fim = sc.nextInt();
-        int[] copiado = f.arrayEntre(valores, inicio,fim);*/
+        int[] copiado = f.arrayEntre(valores, inicio,fim);
         
         int[] c = lerArray();
         System.out.println("Array antes: " + Arrays.toString(c));
@@ -38,7 +39,47 @@ public class TestePrograma
         int aProcurar =  sc.nextInt();
         int indice = f.binarySearch(c,aProcurar);
         System.out.println("Indice no qual o valor foi encontrado: " + indice);
-        f.sort(c);
+        f.sort(c);*/
+        
+        Ex2 ex2 = new Ex2 ();
+        
+        int [][] notasTurma = {
+                                {20,18,15,16,14},
+                                { 7, 5, 14,17,19},
+                                {12,10,15,17, 4},
+                                {20,19,17,18,19},
+                                { 3,15, 7, 8,13}
+                            };
+                            
+        //showPauta(notasTurma);
+        
+        
+        ex2.atualizaPauta(notasTurma);
+        
+        System.out.println(ex2);
+        
+        System.out.println(ex2.mediaAluno(1));
+        System.out.println(ex2.mediaUC(1));
+        System.out.println(ex2.notaMaisAlta(1));
+        showArray(ex2.notasMaisAltas());
+        System.out.println();
+        System.out.println(ex2.notaMaisBaixa(1));
+        showArray(ex2.notasMaisBaixas());
+        System.out.println();
+        showArray(ex2.notasAcimaDeAluno(12,2));
+        System.out.println();
+        showArray(ex2.notasAcimaDe(19));
+        
+        
+        
+       
+                                
+                         
+        
+        
+        
+        
+        
         
         sc.close();
         
@@ -57,6 +98,24 @@ public class TestePrograma
         
     }
     
+    public static void showArray(int[] a)
+    {
+        for(int x : a)
+            System.out.print(x + " ");
+    }
+    
+    public static void showPauta (int pauta[][])
+    {
+        for (int i =0; i< pauta.length; i++)
+        {
+            for(int j =0; j<pauta[i].length; j++)
+                System.out.print(pauta[i][j] + " ");
+            
+            System.out.println();
+            
+        }
+    
+    }
     
     
     

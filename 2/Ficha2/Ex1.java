@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Ficha2
+public class Ex1
 {
     public int minimo_Array(int[] a){
     

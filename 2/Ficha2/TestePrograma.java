@@ -11,10 +11,12 @@ public class TestePrograma
     {
     
         sc = new Scanner(System.in);
-        /*
-        Ex1 f = new Ex1();
         
-        /*System.out.println("Insira quanto valores quer ler: ");
+        
+        //Exercicio 1
+        /*Ex1 f = new Ex1();
+        
+        System.out.println("Insira quanto valores quer ler: ");
         int nValores = sc.nextInt();
         int[] valores = new int[nValores];
         for(int i =0; i<nValores; i++){
@@ -53,7 +55,7 @@ public class TestePrograma
                             
         //showPauta(notasTurma);
         
-        
+        //Exercicio 2
         ex2.atualizaPauta(notasTurma);
         
         System.out.println(ex2);
@@ -69,6 +71,8 @@ public class TestePrograma
         showArray(ex2.notasAcimaDeAluno(12,2));
         System.out.println();
         showArray(ex2.notasAcimaDe(19));
+        System.out.println();
+        System.out.println(ex2.ucMediaMaisAlta());
         
         
         

@@ -121,18 +121,50 @@ public class Ex2
         
     }
     
+    public int ucMediaMaisAlta()
+    {
+        int result = 0;
+        double media = mediaUC(0);
+        for (int i =1; i<notasTurma.length; i++)
+            if (mediaUC(i) > media)
+            {
+                media = mediaUC(i);
+                result = i;
+            }
+        return result;
+    
+    }
+    
        public String toString(){
         String result = "";
-        for (int[] aluno : notasTurma)
+        for (int i=0; i<notasTurma.length; i++)
         {
-            for( int nota : aluno)
-                result += nota + " ";
+            result += "Aluno " + (i+1) + ": ";
+            for(int j=0; j<notasTurma[i].length; j++)
+                result += padNum(notasTurma[i][j],2) + " ";
             result += "\n";
                 
         }
         
         return result;
     
+    }
+    
+    private String padNum(int x, int spaces) // funçao que serve para a impressao das notas ficar formatada
+    {
+        String result = "";
+        int numDigitos, aux = x;
+        for(numDigitos = 1; aux / 10 !=0; numDigitos++)
+            aux /=10;
+        aux = spaces - numDigitos;
+        for(int i=0; i<aux; i++)
+            result += " ";
+        result += x;
+        return result;
+       
+        
+        
+        
     }
     
     

@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Telemovel
+comment1.params=marca\ modelo
+comment1.target=Telemovel(java.lang.String,\ java.lang.String)
+numComments=2

@@ -21,6 +21,8 @@ public class TesteCirculo
         System.out.println(c3.equals(c4));
         System.out.println(c1.equals(c4));
         
+        
+        
     }
         
         

@@ -15,11 +15,11 @@ public class CasaInteligente
     }
     
     public CasaInteligente (ArrayList<Lampada> lampadas){
-        setLampadas(lampadas);
+        this.setLampadas(lampadas);
     }
     
     public CasaInteligente(CasaInteligente ci){
-        setLampadas(ci.getLampadas());
+        this.setLampadas(ci.getLampadas());
     }
     
     public ArrayList<Lampada> getLampadas(){
@@ -58,27 +58,24 @@ public class CasaInteligente
     }
     
     public void ligaLampadaNormal(int index){
-        if(lampadas.size() > index){
-            Lampada l = lampadas.get(index);
-            l.lampON();
-            lampadas.set(index, l);
-        }
+        if(lampadas.size() > index && index >=0)
+            this.lampadas.get(index).lampON(); 
     }
     
     public void ligaLampadaEco(int index){
-        if(lampadas.size() > index){
-            Lampada l = lampadas.get(index);
-            l.lampECO();
-            lampadas.set(index, l);
-        }
+        if(lampadas.size() > index && index >=0)
+            this.lampadas.get(index).lampECO(); 
     }
     
+    
     public int qtEmEco(){
-        return (int)lampadas.stream().filter(l->l.getState()==State.ECO).count();
+        return (int)lampadas.stream().filter(l->l.getModo()==Modo.ECO).count();
+        //ou
+        //return lampadas.stream().mapToInt(l->{if(l.getModo() == Modo.ECO) return 1; else return 0;}).sum();
     }
     
     public void removeLampada(int index){
-        if(lampadas.size()>index)
+        if(lampadas.size()>index && index >=0)
             lampadas.remove(index);
     }
     
@@ -90,15 +87,15 @@ public class CasaInteligente
         lampadas.forEach(l->l.lampON());
     }
     
-    /*
+    
     public double consumoTotal(){
         return lampadas.stream().mapToDouble(l->l.totalConsumo()).sum();
     
-    }*/
-    /*
+    }
+    
     public void reset(){
-        lampadas.forEach(l->l.reset());
-    }*/
+        lampadas.forEach(l->l.setConsumoTotal(0));
+    }
         
         
         

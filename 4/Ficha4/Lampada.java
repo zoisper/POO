@@ -1,69 +1,83 @@
 public class Lampada {
-    private State state;
-    private double powerNormal;
-    private double powerEco;
-    private long ligadoNormal;
-    private long ligadoEco;
+    
+    private Modo modo;
+    private double consumoON;
+    private double consumoECO;
+    private double consumoTotal;
+    // inicio do estado mais recente
+    private double inicioEstado;
 
     public Lampada() {
-        this.state = State.OFF;
-        this.powerNormal = 0;
-        this.powerEco = 0;
-        this.ligadoNormal = 0;
-        this.ligadoEco = 0;
+        this.modo = Modo.OFF;
+        this.consumoON = 2;
+        this.consumoECO = 1;
+        this.consumoTotal = 0;
+        this.inicioEstado = System.currentTimeMillis();
     }
 
-    public Lampada(double powerNormal, double powerEco, State state) {
-        this.state = state;
-        this.powerNormal = powerNormal;
-        this.powerEco = powerEco;
+    public Lampada(Modo modo, double consumoON, double consumoECO, double consumoTotal, double inicioEstado){
+        this.modo = modo;
+        this.consumoON = consumoON;
+        this.consumoECO = consumoECO;
+        this.consumoTotal = consumoTotal;
+        this.inicioEstado = inicioEstado;
     }
 
     public Lampada(Lampada lampada) {
-        this.state = lampada.getState();
-        this.powerNormal = lampada.getPowerNormal();
-        this.powerEco = lampada.getPowerEco();
+        this.modo = lampada.getModo();
+        this.consumoON = lampada.getConsumoON();
+        this.consumoECO = lampada.getConsumoECO();
+        this.consumoTotal = lampada.getConsumoTotal();
+        this.inicioEstado = lampada.getInicioEstado();
     }
 
-    public State getState() {
-        return this.state;
+    public Modo getModo() {
+        return this.modo;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setModo(Modo modo) {
+        this.modo = modo;
     }
 
-    public double getPowerNormal() {
-        return this.powerNormal;
+    public double getConsumoON() {
+        return this.consumoON;
     }
 
-    public void setPowerNormal(double powerNormal) {
-        this.powerNormal = powerNormal;
+    public void setConsumoON(double consumoON) {
+        this.consumoON = consumoON;
     }
 
-    public double getPowerEco() {
-        return this.powerEco;
+    public double getConsumoECO() {
+        return this.consumoECO;
     }
 
-    public void setPowerEco(double powerEco) {
-        this.powerEco = powerEco;
-    }
-
-    public void lampON() {
-        this.state = State.ON;
-    }
-
-    public void lampECO() {
-        this.state = State.ECO;
+    public void setConsumoECO(double consumoECO) {
+        this.consumoECO = consumoECO;
     }
     
-  
+    public double getConsumoTotal() {
+        return this.consumoTotal;
+    }
 
+    public void setConsumoTotal(double consumoTotal) {
+        this.consumoTotal = consumoTotal;
+    }
+    
+    public double getInicioEstado(){
+        return this.inicioEstado;
+    }
+    
+    public void setInicioEstado( double inicioEstado){
+        this.inicioEstado = inicioEstado;
+    }
+    
     public String toString() {
        StringBuilder sb = new StringBuilder();
-        sb.append("State: ").append(this.state.toString());;
-        sb.append(" | Normal power: ").append(this.powerNormal);
-        sb.append(" | Eco power = ").append(this.powerEco);
+        sb.append("Lampada modo: ").append(this.modo.toString());;
+        sb.append(" | Consumo ON por segundo: ").append(this.consumoON);
+        sb.append(" | Consumo ECO por segundo: ").append(this.consumoECO);
+        sb.append(" | Consumo Total: ").append(this.consumoTotal);
+        sb.append(" | Ultimo Reset: ").append(this.inicioEstado);
         return sb.toString();
     }
 
@@ -71,12 +85,70 @@ public class Lampada {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Lampada lampada = (Lampada) o;
-        return this.state.equals(lampada.getState()) &&
-                Double.compare(lampada.getPowerNormal(), this.powerNormal) == 0 &&
-                Double.compare(lampada.getPowerEco(), this.powerEco) == 0;
+        return this.modo == lampada.getModo() && 
+                lampada.getConsumoON() == this.consumoON &&
+                lampada.getConsumoECO() == this.consumoECO && 
+                lampada.getConsumoTotal() == this.consumoTotal &&
+                lampada.getInicioEstado() == this.inicioEstado;
+                
     }
 
     public Lampada clone() {
         return new Lampada(this);
     }
+    
+    private void calculaECO(){
+        double periodoDeTempo = System.currentTimeMillis() - inicioEstado;
+        this.consumoTotal += periodoDeTempo * consumoECO;
+    }
+    
+    private void calculaON(){
+        double periodoDeTempo = System.currentTimeMillis() - inicioEstado;
+        this.consumoTotal += periodoDeTempo * consumoON;
+    }
+    
+  
+    public void lampON() {
+        if(this.modo == Modo.ECO){
+            calculaECO();
+        }
+        inicioEstado = System.currentTimeMillis();
+        this.modo = Modo.ON;
+    }
+    
+    public void lampECO() {
+        if(this.modo == Modo.ON){
+            calculaON();
+        }
+        inicioEstado = System.currentTimeMillis();
+        this.modo = Modo.ECO;
+    }
+
+    public void lampOFF() {
+        if(this.modo == Modo.ECO){
+            calculaECO();
+        }
+        if(this.modo == Modo.ON){
+            calculaON();
+        }
+        inicioEstado = System.currentTimeMillis();
+        this.modo = Modo.OFF;
+    }
+    
+    public double totalConsumo(){
+        return this.consumoTotal + periodoConsumo();
+    }
+    
+    public double periodoConsumo(){
+        double consumoAtual = 0;
+        if(this.modo == Modo.ON){
+            consumoAtual = (System.currentTimeMillis() - inicioEstado)*this.consumoON;
+        }
+        if(this.modo == Modo.ECO){
+            consumoAtual = (System.currentTimeMillis() - inicioEstado)*this.consumoECO;
+        }
+        return consumoAtual;
+    }
+    
+    
 }

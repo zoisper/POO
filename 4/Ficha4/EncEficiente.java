@@ -85,7 +85,7 @@ public class EncEficiente
     }
     
     public ArrayList<LinhaEncomenda> getEncomendas(){
-        Iterator<LinhaEncomenda> it = encomendas.iterator();
+        Iterator<LinhaEncomenda> it = this.encomendas.iterator();
         ArrayList<LinhaEncomenda> ret = new ArrayList<LinhaEncomenda>();
         LinhaEncomenda le;
         while(it.hasNext()){
@@ -122,7 +122,7 @@ public class EncEficiente
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Nome do Cliente: ").append(this.nomeCliente ).append(" | Nif: ").append(this.nif).append(" | Morada: ").append(this.morada);
-        sb.append(" | Numero da Encomenda: ").append(this.numEncomenda).append(" | Data: ").append(this.data).append("\nProdutos:");
+        sb.append(" | Numero da Encomenda: ").append(this.numEncomenda).append(" | Data: ").append(this.data).append("\nLinhas da Encomenda:");
  
         for(LinhaEncomenda le : this.encomendas)
             sb.append("\n").append(le);

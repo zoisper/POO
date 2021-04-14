@@ -9,8 +9,8 @@ public class TesteCasaInteligente
 {
     // instance variables - replace the example below with your own
     public static void main(){
-        Lampada l1 = new Lampada(5, 2, State.ON );
-        Lampada l2 = new Lampada(10, 3, State.OFF );
+        Lampada l1 = new Lampada(Modo.ON ,5, 2,0,0 );
+        Lampada l2 = new Lampada(Modo.OFF , 10, 3,0,0 );
         CasaInteligente ci = new CasaInteligente();
         ci.addLampada(l1);
         ci.addLampada(l2);

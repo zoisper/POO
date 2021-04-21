@@ -57,6 +57,18 @@ public class SmartDevice
       return (sd.getID() == this.id && sd.getOn() == this.status);
     }
     
+  public String toString(){
+      StringBuilder sb =  new StringBuilder();
+      String estado;
+      if(this.status == true)
+        estado = "Ligado";
+      else
+        estado = "Desligado";
+       
+      sb.append("Id: ").append(id).append("\n Estado: ").append(estado);
+      return sb.toString();
+    }
+    
     
     
  

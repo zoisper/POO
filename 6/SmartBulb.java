@@ -33,8 +33,6 @@ public class SmartBulb extends SmartDevice
     
     public SmartBulb(SmartBulb sb){
         super(sb.getID(), sb.getOn());
-        //super.setID(sb.getID());
-        //super.setOn(sb.getOn());
         this.setTone(sb.getTone());
     }
     
@@ -58,9 +56,8 @@ public class SmartBulb extends SmartDevice
     public boolean equals(Object o){
       if (this == o) return true;
       if (o==null || this.getClass() != o.getClass()) return false;
-      SmartDevice sd =  (SmartDevice) o;
       SmartBulb sb = (SmartBulb) o;
-      return super.equals(sd) && this.hue == sb.getTone();
+      return super.equals(sb) && this.hue == sb.getTone();
     }
         
     

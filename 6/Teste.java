@@ -31,6 +31,5 @@ public class Teste
         System.out.println(x.equals(casaInte1));
         
         
-        System.out.println(casaInte1.getDevices());
     }
 }

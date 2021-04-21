@@ -82,7 +82,7 @@ public class CasaInteligente
         if (o == null || this.getClass() != o.getClass())
             return false;
         CasaInteligente ci = (CasaInteligente) o;    
-        return this.morada == ci.getMorada() && this.devices == ci.getDevices() && this.devicesPerDivision == ci.getDevicesPerDivision();
+        return this.morada == ci.getMorada() && this.devices.equals(ci.getDevices()) && this.devicesPerDivision.equals(ci.getDevicesPerDivision());
         
     }
     

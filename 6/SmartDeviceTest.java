@@ -1,4 +1,4 @@
-package casainteligente;
+ 
 
 /*********************************************************************************/
 /** DISCLAIMER: Este código foi criado e alterado durante as aulas práticas      */
@@ -11,10 +11,10 @@ package casainteligente;
 /** conhecimentos de POO.                                                        */
 /*********************************************************************************/
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*; 
+//import org.junit.jupiter.api.AfterEach;
+//import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
 
 /**
  * The test class SmartDeviceTest.
@@ -35,7 +35,7 @@ public class SmartDeviceTest {
      *
      * Called before every test case method.
      */
-    @BeforeEach
+    //@Before
     public void setUp()
     {
     }
@@ -45,7 +45,7 @@ public class SmartDeviceTest {
      *
      * Called after every test case method.
      */
-    @AfterEach
+    //@After
     public void tearDown()
     {
     }

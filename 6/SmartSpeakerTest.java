@@ -1,4 +1,4 @@
-package casainteligente;
+ 
 
 /*********************************************************************************/
 /** DISCLAIMER: Este código foi criado e alterado durante as aulas práticas      */
@@ -11,10 +11,10 @@ package casainteligente;
 /** conhecimentos de POO.                                                        */
 /*********************************************************************************/
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*; 
+//import org.junit.jupiter.api.AfterEach;
+//import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
 
 /**
  * The test class SmartSpeakerTest.
@@ -35,7 +35,7 @@ public class SmartSpeakerTest {
      *
      * Called before every test case method.
      */
-    @BeforeEach
+    //@BeforeEach
     public void setUp()
     {
     }
@@ -45,7 +45,7 @@ public class SmartSpeakerTest {
      *
      * Called after every test case method.
      */
-    @AfterEach
+    //@AfterEach
     public void tearDown()
     {
     }
@@ -79,7 +79,7 @@ public class SmartSpeakerTest {
         SmartSpeaker smartSpe1 = new SmartSpeaker("s1", "RUM", 5);
         smartSpe1.volumeUp();
         smartSpe1.volumeUp();
-        assertEquals(2, smartSpe1.getVolume());
+        assertEquals(7, smartSpe1.getVolume());
         for (int i=0; i<25; i++) smartSpe1.volumeUp();
         assertEquals(20, smartSpe1.getVolume());
         for (int i=0; i<30; i++) smartSpe1.volumeDown();

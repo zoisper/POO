@@ -19,6 +19,12 @@ public class CasaInteligente
         
     }
     
+    public CasaInteligente(String morada){
+        this.morada = morada;
+        this.devices = new TreeMap<>();
+        this.devicesPerDivision = new TreeMap<>();
+    }
+    
     public CasaInteligente(String morada, Map<String, SmartDevice> devices, Map<String, List<String>> devicesPerDivision){
        this.morada = morada;
        setDevices(devices);
@@ -27,11 +33,13 @@ public class CasaInteligente
     
     }
     
-    public CasaInteligente(String morada){
-        this.morada = morada;
-        this.devices = new TreeMap<>();
-        this.devicesPerDivision = new TreeMap<>();
+    public CasaInteligente(CasaInteligente ci){
+        this.morada = ci.getMorada();
+        setDevices(ci.getDevices());
+        setDevicesPerDivision(ci.getDevicesPerDivision());
     }
+    
+    
     
     public String getMorada(){
         return this.morada;
@@ -48,7 +56,7 @@ public class CasaInteligente
     public void setDevices(Map<String,SmartDevice> devices){
         this.devices = new TreeMap<>();
         for(SmartDevice sd : devices.values())
-            devices.put(sd.getID(),sd.clone());
+            this.devices.put(sd.getID(),sd.clone());
         }
         
     public Map<String,List<String>> getDevicesPerDivision(){
@@ -63,6 +71,34 @@ public class CasaInteligente
         for(Map.Entry<String,List<String>> dpd : devicesPerDivision.entrySet())
             this.devicesPerDivision.put(dpd.getKey(),new ArrayList<String>(dpd.getValue()));
         }
+        
+    public CasaInteligente clone(){
+        return new CasaInteligente(this);
+    }
+    
+    public boolean equals(Object o){
+        if (o == this)
+            return true;
+        if (o == null || this.getClass() != o.getClass())
+            return false;
+        CasaInteligente ci = (CasaInteligente) o;    
+        return this.morada == ci.getMorada() && this.devices == ci.getDevices() && this.devicesPerDivision == ci.getDevicesPerDivision();
+        
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Morada: ").append(this.morada);
+        sb.append("\nDispositivos: ");
+        for (Map.Entry<String, SmartDevice> e : devices.entrySet())
+            sb.append(e.getKey()).append(" ");
+        sb.append("\nDispositivos Por Divisao: \n");
+        for (Map.Entry<String, List<String>> dpd : devicesPerDivision.entrySet())
+            sb.append(dpd.getKey()).append(" ").append(dpd.getValue()).append("\n");
+        
+        return sb.toString();
+        
+    }
         
     public boolean existsDevice(String device){
         return devices.values().stream().anyMatch(d->d.getID() == device);

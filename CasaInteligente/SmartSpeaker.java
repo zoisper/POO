@@ -71,6 +71,12 @@ public class SmartSpeaker extends SmartDevice
     public SmartSpeaker clone(){
         return new SmartSpeaker(this);
     }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()).append("\nCanal: ").append(this.channel).append("\nVolume: ").append(this.volume);
+        return sb.toString();
+    }
         
         
     

@@ -59,6 +59,17 @@ public class SmartBulb extends SmartDevice
       SmartBulb sb = (SmartBulb) o;
       return super.equals(sb) && this.hue == sb.getTone();
     }
+    
+    public String toString(){
+        String h;
+        if (this.hue == COLD) h = "Frio";
+        else if(this.hue == NEUTRAL) h = "Neutro";
+        else h = "Quente";
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()).append("\nTonalidade: ").append(h);
+        return sb.toString();
+    }
         
     
     

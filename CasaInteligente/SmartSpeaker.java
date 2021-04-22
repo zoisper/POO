@@ -67,6 +67,10 @@ public class SmartSpeaker extends SmartDevice
       SmartSpeaker sp =  (SmartSpeaker) o;
       return super.equals(sp) && this.channel == sp.getChannel() && this.volume == sp.getVolume();
     }
+    
+    public SmartSpeaker clone(){
+        return new SmartSpeaker(this);
+    }
         
         
     

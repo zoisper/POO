@@ -2,13 +2,17 @@ import java.util.Map;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 
 public class DriveIt
 {
-    Map<String, Veiculo> veiculos;
+    private Map<String, Veiculo> veiculos;
+    private Map<String, Comparator<Veiculo>> comparadores;
     
     
     public DriveIt(){
@@ -98,6 +102,110 @@ public class DriveIt
        for(Veiculo v : vs)
            this.adiciona(v);
     }
+    
+    public Set<Veiculo> ordenarVeiculos(){
+        Set<Veiculo> ret = new TreeSet<Veiculo>();
+        for(Veiculo v: veiculos.values()){
+            ret.add(v.clone());
+        }
+        
+        return ret; 
+    }
+    
+    public List<Veiculo> ordenarVeiculosL(){
+        return veiculos.values().stream().map(Veiculo::clone).sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+    }
+    
+    /* ou
+    public List<Veiculo> ordenarVeiculosL(){
+        Set<Veiculo> s = veiculos.values().stream().map(v->v.clone()).collect(Collectors.toCollection(TreeSet::new));
+        List<Veiculo> ret = new ArrayList<>(s);
+        return ret; 
+    }*/
+    
+    /* ou
+    public List<Veiculo> ordenarVeiculosL(){
+        return new ArrayList<Veiculo>(ordenarVeiculos()); 
+    }*/
+    
+    /* ou
+    public List<Veiculo> ordenarVeiculosL(){
+        List<Veiculo> r = new ArrayList<>();
+        for (Veiculo v : veiculos.values())
+            r.add(v.clone());
+        r.sort(Comparator.naturalOrder());    
+        return r; 
+    }*/
+    
+    
+    
+    public Set<Veiculo> ordenarVeiculos(Comparator<Veiculo> c){
+        return veiculos.values().stream().map(Veiculo::clone).collect(Collectors.toCollection(()-> new TreeSet<>(c)));
+    }
+    
+    /* ou
+    public Set<Veiculo> ordenarVeiculos(Comparator<Veiculo> c){
+        Set<Veiculo> ret = new TreeSet<Veiculo>(c);
+        for(Veiculo v: veiculos.values()){
+            ret.add(v.clone());
+        }
+        
+        return ret; 
+    }*/
+    
+    public Comparator<Veiculo> compNumKms(){
+        Comparator<Veiculo> c = (v1, v2) -> v1.getKms() - v2.getKms();
+        return c;
+        
+    }
+    
+    
+    
+    public Iterator<Veiculo> ordenarVeiculo(String criterio){
+        Comparator <Veiculo> c;
+        if (comparadores.containsKey(criterio))
+            c = comparadores.get(criterio); 
+        else
+            c = Comparator.naturalOrder();
+        Set<Veiculo> ordenados = this.ordenarVeiculos(c);
+        
+        return ordenados.iterator();
+    }
+    
+    public void exemploUsoIterators(){
+        Iterator<Veiculo> it = ordenarVeiculo("criterio1");
+        boolean found = false;
+        while(it.hasNext() && !found){
+            Veiculo v = it.next();
+            if(v.getMarca().equals("Audi")) found = true;
+        }
+    }
+    
+    public Veiculo veiculoComMenosKm(){
+        Veiculo v =  veiculos.values().stream().sorted((v1, v2) ->  v1.getKms() - v2.getKms()).findFirst().orElse(null);
+        if(v!= null) v = v.clone();
+        return v;
+    }
+    
+    public Map<String,List<Veiculo>> agrupadosPorMarca(){
+        Map<String, List<Veiculo>> r = new HashMap<>();
+        for(Veiculo v : veiculos.values()){
+            r.putIfAbsent(v.getMarca(), new ArrayList<>());
+            r.get(v.getMarca()).add(v.clone());
+        }
+        for(List<Veiculo> l : r.values()){
+            l.sort((v1,v2) -> v1.getKms() - v2.getKms());
+        }
+        return r;
+            
+        
+    }
+    
+    
+    
+    
+    
+    
     
     
     

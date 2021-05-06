@@ -11,6 +11,7 @@
 /*********************************************************************************/ 
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Classe VeÃ­culo, para utilizaÃ§Ã£o na Ficha 6.
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @version 20210420
  */
 
-public abstract class Veiculo implements Comparable<Veiculo> {
+public abstract class Veiculo implements Comparable<Veiculo>, Serializable {
     private String marca;
     private String modelo;
     private String matricula;
@@ -186,6 +187,14 @@ public abstract class Veiculo implements Comparable<Veiculo> {
         return (this.modelo.compareTo(v.getModelo()));
       else
         return (this.marca.compareTo(v.getMarca()));        
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.marca).append(",")
+        .append(this.modelo).append(",")
+        .append(this.matricula);
+        return sb.toString();
     }
     
     

@@ -8,8 +8,16 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 
-public class DriveIt
+
+public class DriveIt implements Serializable
 {
     private Map<String, Veiculo> veiculos;
     private Map<String, Comparator<Veiculo>> comparadores;
@@ -201,10 +209,50 @@ public class DriveIt
         
     }
     
+    /*
+    public List<BonificaKms> daoPontos(){
+        List<BonificaKms> r = new ArrayList<>();
+        for(Veiculo v : veiculos.values()){
+            if(v instanceof BonificaKms)
+                r.add((BonificaKms) v.clone());   
+        }
+        return r;  
+    }*/
+    
+    public List<BonificaKms> daoPontos(){
+        return veiculos.values().stream().filter(v -> v instanceof BonificaKms).map(v-> (BonificaKms) v.clone()).collect(Collectors.toList());
+        
+    }
     
     
     
+    public void toCSV(String filename) throws IOException{
+        PrintWriter fich = new PrintWriter(filename);
+        for(Veiculo v : veiculos.values())
+            fich.println(v.toString());
+            
+       fich.flush();
+       fich.close();
+        
+    }
     
+   public void guardaEstado(String filename) throws IOException{
+       FileOutputStream fos = new FileOutputStream(filename);
+       ObjectOutputStream oos = new ObjectOutputStream(fos);
+       oos.writeObject(this);
+       oos.flush();
+       oos.close();
+ 
+       
+    }
+    
+    public static DriveIt carregaEstado(String filename) throws IOException, ClassNotFoundException{
+        FileInputStream fs = new FileInputStream(filename);
+        ObjectInputStream ois = new ObjectInputStream(fs);
+        DriveIt d = (DriveIt) ois.readObject();
+        ois.close();
+        return d;
+    }
     
     
     

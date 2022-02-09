@@ -7,6 +7,27 @@ public class Main
 {
     
     public static void main(){
+        
+        Veiculo v = new VeiculoPremium();
+        System.out.println(v instanceof Veiculo);
+        System.out.println(v instanceof BonificaKms);
+        System.out.println(v instanceof VeiculoPremium);
+        System.out.println(v.getClass().getSimpleName());
+        System.out.println();
+        BonificaKms b = new VeiculoPremium();
+        System.out.println(b instanceof Veiculo);
+        System.out.println(b instanceof BonificaKms);
+        System.out.println(b instanceof VeiculoPremium);
+        System.out.println(b.getClass().getSimpleName());
+        
+        System.out.println();
+        VeiculoOcasiao vo = new VeiculoOcasiao();
+        System.out.println(vo instanceof Veiculo);
+        System.out.println(vo instanceof BonificaKms);
+        
+        System.out.println(vo.getClass().getSimpleName());
+        
+        /*
         DriveIt d;
         try{
             d = DriveIt.carregaEstado("estado.dat");
@@ -18,14 +39,14 @@ public class Main
         }
         Controller c = new Controller(d);
         View v = new View(c);
-        v.run();
+        //v.run();
         
         try{
             d.guardaEstado("estado.dat");
         }
         catch (IOException e){
             System.out.println("Nao foi possivel criar o ficheiro dat " + e.toString());
-        }
+        }*/
     
        
     }

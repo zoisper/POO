@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main
 {
     
-    public static void main(){
+    public static void main(String[] args){
         
         Veiculo v = new VeiculoPremium();
         System.out.println(v instanceof Veiculo);
